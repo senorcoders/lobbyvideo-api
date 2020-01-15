@@ -49,6 +49,7 @@ config/local.js
 config/datastores.js
 config/env/staging.js
 config/env/production.js
+datastores.js
 
 
 ################################################
