@@ -20,7 +20,7 @@ module.exports.policies = {
   // '*': true,
   '*': true,
   //'*': ['captureOrigin'],
-  '*': ['isAuthorized'], // Everything resctricted here
+  //'*': ['isAuthorized'], // Everything resctricted here
   'UsersController': { // Name of your controller
     'create': true, // We dont need authorization here, allowing public access
     'login': true
