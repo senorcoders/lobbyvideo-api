@@ -6,6 +6,9 @@
  */
 
 module.exports = {
+    code: async (req, res) => {
+        res.status(200).send("123456");
+    },
     create: async (req, res) => {
 		const data = req.allParams();
 

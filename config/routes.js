@@ -35,5 +35,6 @@ module.exports.routes = {
 
   'POST /api/v1/register': 'Users/create',
   'POST /api/v1/login': 'Users/login',
+  'GET /api/v1/code': 'Users/code',
 
 };
