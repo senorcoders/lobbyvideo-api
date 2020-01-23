@@ -7,7 +7,17 @@
 
 module.exports = {
     code: async (req, res) => {
-        res.status(200).send("123456");
+        console.log(req.ip);
+        length = 6;
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        console.log("Res: ", result);
+        
+        res.status(200).send(result);
     },
     create: async (req, res) => {
 		const data = req.allParams();
