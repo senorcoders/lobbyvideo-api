@@ -7,7 +7,7 @@
 
 module.exports = {
     code: async (req, res) => {
-        console.log(req.ip);
+        console.log(req.headers.origin);
         length = 6;
         var result = '';
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
