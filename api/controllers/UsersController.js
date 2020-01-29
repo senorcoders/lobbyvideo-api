@@ -16,8 +16,55 @@ module.exports = {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         console.log("Res: ", result);
-        
+        await Codes.create({'code': result});
         res.status(200).send(result);
+    },
+    checkCode: async (req, res) => {
+        let data = req.allParams();
+        // receive code & email
+        // Check if code has been set within 15 minutes
+        // set code to user
+        var getNow = Date.now()-900000;
+
+        if (data.email && data.code){
+            var codeId = await Codes.find({ where: {code: data.code, updatedAt: {'>=': getNow}}, select: ['id']})
+            if (codeId.length > 0){
+                let theCode = codeId[0].id
+                var updated = await Users.updateOne({email: data.email}).set({code: theCode});
+                if (updated.length > 0){
+                    updated = 'success'
+                }
+            } else {
+                var updated = 'failed';
+            }
+        } else {
+            res.status(500);
+        }
+
+        res.status(200).send(updated);
+
+    },
+    loginCode: async (req, res) => {
+        let data = req.allParams();
+        // check code against user table and return correct video
+        console.log("LOGIN COde: ", data.code);
+        let codeId = await Codes.find({where: {code: data.code}, select: ['id']});
+        if (codeId.length > 0){
+            var video = await Users.find({where: {code: codeId[0].id}, select: ['video']});
+        }
+
+        if (video.length > 0){
+            console.log("Video Info: ", video.video);
+            if (video.video) {
+                res.status(200).send(video);
+            } else {
+                video = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
+                res.status(200).send(video);
+            }
+        } else {
+            res.status(500);
+        }
+
     },
     create: async (req, res) => {
 		const data = req.allParams();
@@ -86,6 +133,27 @@ module.exports = {
                 sails.log.error(err);
                 return res.serverError();
             });
+    },
+    setCode: async (req, res) => {
+        data = req.allParams();
+        let code = data.code;
+        let video = Users.find({where: {code: code},select: ['video']});
+        if (video.length < 1){
+            video = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4'
+        }
+        res.send(video);
+        // check if code is valid in code table
+    },
+    setVideo: async (req, res) => {
+        let data = req.allParams();
+        let email = data.email
+        if (data.video){
+            let video = await Users.update({email: data.email}).set({video: data.video});
+        } else {
+            res.status(500);
+        }
+
+        res.status(200).send(video);
     },
 };
 

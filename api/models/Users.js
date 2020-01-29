@@ -20,6 +20,12 @@ module.exports = {
     fullName: {
       type: 'string'
     },
+    code: {
+      model: 'codes'
+    },
+    video: {
+      type: 'string'
+    },
     encryptedPassword: {
 			type: 'string'
     },
