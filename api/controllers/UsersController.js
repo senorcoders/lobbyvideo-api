@@ -112,13 +112,11 @@ module.exports = {
                     .then(async (tokenUser) => {
 
                         // get the team from the user and send it back with the token
+                        console.log("Token: ", tokenUser);
                         let user = tokenUser[1];
                         let token = tokenUser[0];
-                        let team = await Teams.findOne({id: user.team});
-                        if (!team || team == 'null'){
-                            team = '';
-                        }
-                        let sendBody = {'token':token, 'team':team, 'userid': user.id}
+                        
+                        let sendBody = {'token':token, 'userid': user.id}
                         return res.status(200).send(sendBody);
                     })
 
@@ -137,9 +135,10 @@ module.exports = {
     setCode: async (req, res) => {
         data = req.allParams();
         let code = data.code;
-        let video = Users.find({where: {code: code},select: ['video']});
+        let video = await Users.find({where: {code: code},select: ['video']});
         if (video.length < 1){
-            video = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4'
+            video = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
+            await Users.update({})
         }
         res.send(video);
         // check if code is valid in code table
