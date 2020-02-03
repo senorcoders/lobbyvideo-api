@@ -55,7 +55,7 @@ module.exports = {
 
         if (video.length > 0){
             console.log("Video Info: ", video.video);
-            if (video.video.length > 0) {
+            if (video.hasOwnProperty('video')) {
                 console.log("Video Available Sending: ", video.video)
                 res.status(200).send(video);
             } else {
