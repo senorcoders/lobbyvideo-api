@@ -39,6 +39,6 @@ module.exports.routes = {
   'GET /api/v1/code/:code': 'Users/setCode',
   'POST /api/v1/setVideo': 'Users/setVideo',
   'POST /api/v1/checkcode': 'Users/checkCode',
-  'GET /api/v1/logincode': 'Users/loginCode',
+  'GET /api/v1/logincode/:code': 'Users/loginCode',
 
 };
