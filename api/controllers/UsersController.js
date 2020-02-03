@@ -56,9 +56,11 @@ module.exports = {
         if (video.length > 0){
             console.log("Video Info: ", video.video);
             if (video.video) {
+                console.log("Video Available Sending: ", video.video)
                 res.status(200).send(video);
             } else {
                 video = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
+                console.log("Video N/A Sending: ", video.video)
                 res.status(200).send(video);
             }
         } else {
