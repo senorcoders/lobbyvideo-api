@@ -64,7 +64,7 @@ module.exports = {
                 res.status(200).send(video);
             }
         } else {
-            res.status(500);
+            res.status(200).send('none');
         }
 
     },
@@ -137,12 +137,16 @@ module.exports = {
     setCode: async (req, res) => {
         data = req.allParams();
         let code = data.code;
-        let video = await Users.find({where: {code: code},select: ['video']});
-        if (video.length < 1){
-            video = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
-            await Users.update({})
+        let email = data.email;
+
+        let setCode = await Codes.find({code: code});
+        if (setCode.length > 0){
+            console.log("Code Info: ", setCode);
+            let video = await Users.update({email: email}).set({code: setCode[0].id}).fetch();
+            res.send("Updated")
+        } else {
+            res.send("Incorrect Code");
         }
-        res.send(video);
         // check if code is valid in code table
     },
     setVideo: async (req, res) => {

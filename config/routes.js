@@ -36,7 +36,7 @@ module.exports.routes = {
   'POST /api/v1/register': 'Users/create',
   'POST /api/v1/login': 'Users/login',
   'GET /api/v1/code': 'Users/code',
-  'GET /api/v1/code/:code': 'Users/setCode',
+  'POST /api/v1/setcode/': 'Users/setCode',
   'POST /api/v1/setVideo': 'Users/setVideo',
   'POST /api/v1/checkcode': 'Users/checkCode',
   'GET /api/v1/logincode/:code': 'Users/loginCode',
