@@ -49,11 +49,13 @@ module.exports = {
         // check code against user table and return correct video
         console.log("LOGIN COde: ", data.code);
         let codeId = await Codes.find({where: {code: data.code}, select: ['id']});
+        console.log("codeId: ", codeId);
         if (codeId.length > 0){
             var video = await Users.find({where: {code: codeId[0].id}, select: ['video']});
+            console.log("Video: ", video[0].video);
         }
-        console.log("Video: ", video[0].video);
-        if (video.length > 0){
+        
+        if (video[0].length > 0){
             console.log("Video Info: ", video[0].video);
             if (video[0].hasOwnProperty('video')) {
                 console.log("Video Available Sending: ", video[0].video)
