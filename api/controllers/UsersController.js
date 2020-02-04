@@ -52,12 +52,12 @@ module.exports = {
         if (codeId.length > 0){
             var video = await Users.find({where: {code: codeId[0].id}, select: ['video']});
         }
-
+        console.log("Video: ", video[0].video);
         if (video.length > 0){
-            console.log("Video Info: ", video.video);
-            if (video.hasOwnProperty('video')) {
-                console.log("Video Available Sending: ", video.video)
-                res.status(200).send(video);
+            console.log("Video Info: ", video[0].video);
+            if (video[0].hasOwnProperty('video')) {
+                console.log("Video Available Sending: ", video[0].video)
+                res.status(200).send(video[0].video);
             } else {
                 video = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
                 console.log("Video N/A Sending: ", video.video)
