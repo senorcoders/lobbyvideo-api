@@ -152,8 +152,8 @@ module.exports = {
     setVideo: async (req, res) => {
         let data = req.allParams();
         let email = data.email
-        if (data.video){
-            let video = await Users.update({email: data.email}).set({video: data.video});
+        if (data.video.length > 0){
+            var video = await Users.update({email: data.email}).set({video: data.video}).fetch();
         } else {
             res.status(500);
         }
