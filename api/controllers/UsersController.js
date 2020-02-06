@@ -51,24 +51,28 @@ module.exports = {
         let codeId = await Codes.find({where: {code: data.code}, select: ['id']});
         console.log("codeId: ", codeId);
         if (codeId.length > 0){
-            var video = await Users.find({where: {code: codeId[0].id}, select: ['video']});
-            console.log("Video: ", video[0].video);
-        }
-        
-        if (video[0].length > 0){
-            console.log("Video Info: ", video[0].video);
-            if (video[0].hasOwnProperty('video')) {
-                console.log("Video Available Sending: ", video[0].video)
-                res.status(200).send(video[0].video);
+            var video = await Users.find({code: codeId[0].id});
+            if (video.length > 0){
+                console.log("Video Info: ", video[0].video);
+                if (video[0].video.length > 0) {
+                    console.log("Video Available Sending: ", video[0].video)
+                    res.status(200).send(video[0].video);
+                } else {
+                    let defaultVideo = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
+                    //console.log("Video N/A Sending: ", video.video)
+                    res.status(200).send(defaultVideo);
+                }
             } else {
-                video = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
-                console.log("Video N/A Sending: ", video.video)
-                res.status(200).send(video);
+                res.status(200).send('none');
+                return;
             }
+    
         } else {
             res.status(200).send('none');
+            return;
         }
-
+        
+        
     },
     create: async (req, res) => {
 		const data = req.allParams();
