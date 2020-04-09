@@ -49,7 +49,7 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
    adapter: 'sails-mysql',
-   url: 'mysql://root:helium@matsidestats.com/lobbyvideo',
+   url: 'mysql://',
 
   },
 
