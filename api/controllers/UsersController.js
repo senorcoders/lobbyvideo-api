@@ -56,7 +56,7 @@ module.exports = {
                 console.log("Video Info: ", video[0].video);
                 if (video[0].video.length > 0) {
                     console.log("Video Available Sending: ", video[0].video)
-                    let dV = {'video': video[0].video}
+                    let dV = 'http://lobbyvideo.senorcoders.com/' + {'video': video[0].video}
                     res.status(200).send(dV);
                 } else {
                     let defaultVideo = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
