@@ -56,10 +56,12 @@ module.exports = {
                 console.log("Video Info: ", video[0].video);
                 if (video[0].video.length > 0) {
                     console.log("Video Available Sending: ", video[0].video)
-                    res.status(200).send(video[0].video);
+                    let dV = {'video': video[0].video}
+                    res.status(200).send(dV);
                 } else {
                     let defaultVideo = 'http://lobbyvideo.senorcoders.com/uscenes_soft_coral_tank.mp4';
                     //console.log("Video N/A Sending: ", video.video)
+                    defaultVideo = {"video":defaultVideo}
                     res.status(200).send(defaultVideo);
                 }
             } else {
@@ -165,6 +167,11 @@ module.exports = {
         }
 
         res.status(200).send(video);
+    },
+    sendMail: async(req, res) => {
+        let data = req.body;
+        await sails.helpers.mailer(data);
+        res.status(200);
     },
 };
 
